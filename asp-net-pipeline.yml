@@ -12,6 +12,25 @@ pool:
 variables:
   buildConfiguration: 'Release'
 
-steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+stages:
+  - stage: configure-dotnet
+    jobs:
+    - job: build-config
+      steps:
+      - task: DotNetCoreCLI@2
+        displayName: 'dotnet build $(buildConfiguration)'
+      - script: dotnet build --configuration $(buildConfiguration)
+    - job: script
+      steps:
+        - task: PythonScript@0
+          inputs:
+            scriptSource: 'inline'
+            script: 'print("In first stage, job two")'
+  - stage: python-script
+    jobs:
+    - job: another-script
+      steps:
+      - task: PythonScript@0
+        inputs:
+          scriptSource: 'inline'
+          script: 'print("In second stage, job one")'
