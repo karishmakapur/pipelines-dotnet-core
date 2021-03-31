@@ -15,7 +15,7 @@ variables:
 stages:
   - stage: configure
     jobs:
-    - job: build-config
+    - job: buildConfig
       steps:
       - task: DotNetCoreCLI@2
         displayName: 'dotnet build $(buildConfiguration)'
@@ -28,7 +28,7 @@ stages:
             script: 'print("In first stage, job two")'
   - stage: python
     jobs:
-    - job: another-script
+    - job: anotherScript
       steps:
       - task: PythonScript@0
         inputs:
