@@ -25,7 +25,7 @@ stages:
         - task: PythonScript@0
           inputs:
             scriptSource: 'inline'
-            script: 'print("In first stage, job two")'
+            script: 'print("In first stage, job two)'
   - stage: python
     jobs:
     - job: anotherScript
